@@ -23,8 +23,17 @@ export default {
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f8f8f9;
   color: #2c3e50;
+}
+
+.layout-content {
+  width: 70%;
+  margin: 10px auto;
+  background-color: white;
+  padding-bottom: 74px;
 }
 </style>

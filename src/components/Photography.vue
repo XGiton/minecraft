@@ -1,10 +1,9 @@
 <template>
   <div id="photography">
-    <p class="totalInfo">共 {{ total }} 篇文章</p>
     <div class="articleList">
       <ul>
         <li v-for="article in articles">
-          <span>{{ article.title }}</span>
+          <ArticleCard class="article-card"></ArticleCard>
         </li>
       </ul>
     </div>
@@ -12,6 +11,8 @@
 </template>
 
 <script>
+import ArticleCard from './ArticleCard'
+
 export default {
   name: 'photography',
   data () {
@@ -19,6 +20,9 @@ export default {
       total: 0,
       articles: []
     }
+  },
+  components: {
+    ArticleCard
   },
   created: function () {
     this.getArticles()
@@ -38,3 +42,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#photography {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.article-card {
+  padding-top: 20px;
+}
+
+</style>
