@@ -2,7 +2,7 @@
   <div id="photography">
     <div class="articleList">
       <ul>
-        <li v-for="article in articles">
+        <li v-for="article, index in articles">
           <ArticleCard class="article-card"></ArticleCard>
         </li>
       </ul>
@@ -45,8 +45,12 @@ export default {
 
 <style scoped>
 #photography {
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 16%;
+  margin-right: 16%;
+  background-color: #fff;
+  padding-left: 8%;
+  padding-right: 8%;
+  margin-bottom: 100px;
 }
 .article-card {
   padding-top: 20px;

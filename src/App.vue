@@ -31,9 +31,8 @@ export default {
 }
 
 .layout-content {
-  width: 70%;
-  margin: 10px auto;
-  background-color: white;
-  padding-bottom: 74px;
+  background-color: #f8f8f9;
+  height: 100%;
+  box-sizing: border-box;
 }
 </style>

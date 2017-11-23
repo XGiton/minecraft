@@ -1,6 +1,14 @@
 <template>
   <div id="create-article">
-    <Form class="form">
+    <div class="layout-left">
+      <Card dis-hover v-for="(item, index) in list1" :key="index">
+        Content {{ item }}
+      </Card>
+    </div>
+    <div class="layout-right">
+      hellow world
+    </div>
+    <!-- <Form class="form">
       <FormItem prop="title" :error="titleError" :show-message="showTitleError">
         <Input v-model="title" size="large" placeholder="请输入标题"></Input>
       </FormItem>
@@ -40,11 +48,11 @@
       <FormItem>
         <Button type="primary" class="save-btn" long @click="save">保存</Button>
       </FormItem>
-    </Form>
-    <div class="tool">
+    </Form> -->
+    <!-- <div class="tool">
       <Button type="primary" @click="addPhoto">添加图片</Button>
       <Button type="primary" @click="addText">添加文字</Button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -57,6 +65,7 @@ export default {
   },
   data () {
     return {
+      list1: [1, 2, 4, 5, 6],
       title: '',
       a_type: 'photography',
       cover_desc: '',
@@ -65,8 +74,13 @@ export default {
       editTitle: false,
       editCoverDesc: false,
       titleError: '',
-      showTitleError: false
+      showTitleError: false,
+      windowHeight: window.screen.availHeight - 60,
+      windowWidth: window.screen.availWidth
     }
+  },
+  created: function () {
+    console.log(window)
   },
   methods: {
     onCoverSelect: async function ($event) {
@@ -180,41 +194,33 @@ export default {
 </script>
 
 <style scoped>
-.form {
-  width: 50%;
-  margin: 0 auto;
-  padding: 20px 100px 0px;
+#create-article {
+  position: relative;
+  box-sizing: border-box;
+  min-height: 100%;
 }
-
-.cover-desc-input {
-  width: 100%;
-  margin: 20px 0 0;
-}
-
-.upload-btn {
-  margin: 20px 0 0;
-  text-align: center;
-  border: 1px dashed #dddee1;
-  vertical-align: middle;
+.layout-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 340px;
   height: 100%;
+  overflow-y: auto;
+  background-color: #5cadff;
+  padding: 22px 30px 80px;
+  box-sizing: border-box;
 }
-
-.upload-btn:hover {
-  border: 1px dashed #3399ff;
-  transition: border-color .2s ease;
-}
-
-.photo {
-  width: 100%;
-}
-
-.save-btn {
-  margin: 20px 0 0;
-}
-
-.tool {
-  /*padding-top: 20px;*/
-  width: 200px;
-  margin: 0 auto;
+.layout-right {
+  width: 340px;
+  height: 100%;
+  padding: 18px 20px 140px;
+  margin-left: auto;
+  font-size: 13px;
+  line-height: 18px;
+  overflow-y: auto;
+  color: #222;
+  background-color: #fff;
+  box-sizing: border-box;
 }
 </style>
