@@ -32,7 +32,9 @@ export default {
 
 .layout-content {
   background-color: #f8f8f9;
-  height: 100%;
+  height: calc(100% - 60px);
   box-sizing: border-box;
+  width: 100%;
+  position: absolute;
 }
 </style>

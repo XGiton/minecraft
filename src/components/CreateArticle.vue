@@ -1,58 +1,45 @@
 <template>
   <div id="create-article">
     <div class="layout-left">
-      <Card dis-hover v-for="(item, index) in list1" :key="index">
-        Content {{ item }}
-      </Card>
+      <ul class="content-list">
+        <li class="content-item" v-for="content, index in contents" :key="index">
+          <img :src="content.c_data">
+          <div class="mask" style="width: 186px; height: 270px;">
+            <a class="icon-close"></a>
+          </div>
+        </li>
+        <li class="upload-item">
+          <div class="upload-photo">
+            <Icon type="plus" size="32" color="#e0e0e0"></Icon>
+            <p>
+              最大支持20MB的JPEG格式照片
+              <br>
+              不建议加画框和水印签名
+            </p>
+          </div>
+          <input type="file" class="file-input" multiple_accept="image/jpeg,image/jpg">
+        </li>
+      </ul>
     </div>
     <div class="layout-right">
-      hellow world
+      <Form label-position="top">
+        <FormItem label="标题">
+          <Input v-model="title"></Input>
+        </FormItem>
+        <FormItem label="作品描述">
+          <Input
+            type="textarea" :rows="4" v-model="cover_desc"
+            placeholder="说说你的拍摄经历">
+          </Input>
+        </FormItem>
+        <FormItem label="标签">
+          <Input>
+            <Tag v-for="tag in tags" closable @on-close="handleClose">tag</Tag>
+          </Input>
+        </FormItem>
+      </Form>
+      <Button class="publish-btn">发布</Button>
     </div>
-    <!-- <Form class="form">
-      <FormItem prop="title" :error="titleError" :show-message="showTitleError">
-        <Input v-model="title" size="large" placeholder="请输入标题"></Input>
-      </FormItem>
-      <FormItem>
-        <RadioGroup v-model="a_type">
-          <Radio label="photography">摄影</Radio>
-          <Radio label="program">编程</Radio>
-          <Radio label="essay">散文</Radio>
-        </RadioGroup>
-      </FormItem>
-      <FormItem prop="cover_desc">
-        <Input v-model="cover_desc" type="textarea" class="cover-desc-input" :rows="4" placeholder="请输入封面描述"></Input>
-      </FormItem>
-      <FormItem class="upload-btn" prop="cover_url">
-        <label for="file">
-          <img v-if="cover_url" :src="cover_url" class="photo"/>
-          <div v-else>
-            <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-            <p>请选择封面</p>
-          </div>
-        </label>
-        <input id="file" type="file" style="display: none" @change="onCoverSelect"></input>
-      </FormItem>
-      <FormItem v-for="content, index in contents" :key="index" prop="content">
-        <div v-if="content.c_type === 'photo'">
-          <label>
-            <img v-if="content.c_data" :src="content.c_data" class="photo"/>
-            <div v-else>
-              <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-              <p>请选择图片</p>
-            </div>
-            <input id="file" type="file" style="display: none" @change="onContentSelect($event, index)"></input>
-          </label>
-        </div>
-        <Input v-else v-model="content.c_data" type="textarea" :rows="4" placeholder="请输入文字"></Input>
-      </FormItem>
-      <FormItem>
-        <Button type="primary" class="save-btn" long @click="save">保存</Button>
-      </FormItem>
-    </Form> -->
-    <!-- <div class="tool">
-      <Button type="primary" @click="addPhoto">添加图片</Button>
-      <Button type="primary" @click="addText">添加文字</Button>
-    </div> -->
   </div>
 </template>
 
@@ -65,12 +52,22 @@ export default {
   },
   data () {
     return {
-      list1: [1, 2, 4, 5, 6],
+      tags: ['风光', '广州'],
       title: '',
       a_type: 'photography',
       cover_desc: '',
       cover_url: '',
-      contents: [],
+      contents: [
+        {
+          c_data: 'https://photo.tuchong.com/1669085/l/21008324.webp'
+        },
+        {
+          c_data: 'https://photo.tuchong.com/1669085/l/21008339.webp'
+        },
+        {
+          c_data: 'https://photo.tuchong.com/1669085/l/21008338.webp'
+        }
+      ],
       editTitle: false,
       editCoverDesc: false,
       titleError: '',
@@ -198,6 +195,8 @@ export default {
   position: relative;
   box-sizing: border-box;
   min-height: 100%;
+  font-size: 14px;
+  font-weight: 500;
 }
 .layout-left {
   position: absolute;
@@ -207,7 +206,6 @@ export default {
   right: 340px;
   height: 100%;
   overflow-y: auto;
-  background-color: #5cadff;
   padding: 22px 30px 80px;
   box-sizing: border-box;
 }
@@ -222,5 +220,105 @@ export default {
   color: #222;
   background-color: #fff;
   box-sizing: border-box;
+}
+.publish-btn {
+  width: 100%;
+  /*position: fixed;*/
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  width: 100%;
+  height: 48px;
+  padding: 13px 0;
+  border: 0;
+  text-align: center;
+  outline: 0;
+  color: #fff;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 10px;
+  text-indent: 10px;
+  background-color: #5cadff;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.content-list {
+  margin-top: 32px;
+  margin-left: -40px;
+  font-size: 0;
+}
+
+.content-item {
+  position: relative;
+  display: inline-block;
+  width: 250px;
+  height: 250px;
+  margin-left: 40px;
+  margin-bottom: 40px;
+  vertical-align: top;
+}
+
+.content-item img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 250px;
+  max-height: 250px;
+  margin: auto;
+}
+.mask {
+  position: absolute;
+  left: 50%;
+  top: 50px;
+  transform: translate(-50%,-50%);
+  border: 3px solid transparent;
+  cursor: move;
+}
+.icon-close {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  display: none;
+  width: 19px;
+  height: 19px;
+  padding-top: 4px;
+  text-align: center;
+  background-color: rgba(0,0,0,.5);
+}
+.upload-item {
+  position: relative;
+  display: inline-block;
+  width: 250px;
+  height: 250px;
+  margin-left: 40px;
+  margin-bottom: 40px;
+  vertical-align: top;
+}
+.upload-photo {
+  height: 168px;
+  padding: 47px 0;
+  border: 2px solid #e0e0e0;
+  margin: 41px 0;
+  text-align: center;
+  color: #85888a;
+  font-size: 12px;
+}
+.icon-add {
+  color: #e0e0e0;
+}
+.icon-add::before {
+  content: "\e914";
+  font-size: 32px;
+}
+.file-input {
+  position: absolute;
+  top: 41px;
+  left: 0;
+  width: 100%;
+  height: 168px;
+  opacity: 0;
+  cursor: pointer;
 }
 </style>
