@@ -3,7 +3,11 @@
     <div class="articleList">
       <ul>
         <li v-for="article, index in articles">
-          <ArticleCard class="article-card"></ArticleCard>
+          <ArticleCard
+            class="article-card"
+            v-bind="article"
+          >
+          </ArticleCard>
         </li>
       </ul>
     </div>

@@ -3,9 +3,14 @@
     <div class="layout-left">
       <ul class="content-list">
         <li class="content-item" v-for="content, index in contents" :key="index">
-          <img :src="content.c_data">
-          <div class="mask" style="width: 186px; height: 270px;">
-            <a class="icon-close"></a>
+          <div v-if="content.uploading" class="uploading">
+            <Spin fix style="background-color: #FF9933;"></Spin>
+          </div>
+          <div v-else>
+            <img :src="content.c_data">
+            <div class="mask" style="width: 186px; height: 270px;">
+              <a class="icon-close"></a>
+            </div>
           </div>
         </li>
         <li class="upload-item">
@@ -17,28 +22,39 @@
               不建议加画框和水印签名
             </p>
           </div>
-          <input type="file" class="file-input" multiple_accept="image/jpeg,image/jpg">
+          <input
+            type="file" class="file-input"
+            multiple_accept="image/jpeg,image/jpg"
+            @change="onPhotoSelect"
+          >
+          </input>
         </li>
       </ul>
     </div>
     <div class="layout-right">
       <Form label-position="top">
-        <FormItem label="标题">
-          <Input v-model="title"></Input>
+        <FormItem
+          label="标题" :error="titleError"
+          :show-message="showTitleError">
+          <Input v-model="title" @on-focus="titleOnFocus"></Input>
         </FormItem>
-        <FormItem label="作品描述">
+        <FormItem
+          label="作品描述" :error="descError"
+          :show-message="showDescError"
+        >
           <Input
             type="textarea" :rows="4" v-model="cover_desc"
-            placeholder="说说你的拍摄经历">
+            placeholder="说说你的拍摄经历" @on-focus="descOnFocus"
+          >
           </Input>
         </FormItem>
         <FormItem label="标签">
           <Input>
-            <Tag v-for="tag in tags" closable @on-close="handleClose">tag</Tag>
+            <Tag v-for="tag, index in tags" :key="index" closable @on-close="handleClose">tag</Tag>
           </Input>
         </FormItem>
       </Form>
-      <Button class="publish-btn">发布</Button>
+      <Button class="publish-btn" @click="publish">发布</Button>
     </div>
   </div>
 </template>
@@ -57,61 +73,39 @@ export default {
       a_type: 'photography',
       cover_desc: '',
       cover_url: '',
-      contents: [
-        {
-          c_data: 'https://photo.tuchong.com/1669085/l/21008324.webp'
-        },
-        {
-          c_data: 'https://photo.tuchong.com/1669085/l/21008339.webp'
-        },
-        {
-          c_data: 'https://photo.tuchong.com/1669085/l/21008338.webp'
-        }
-      ],
-      editTitle: false,
-      editCoverDesc: false,
+      contents: [],
       titleError: '',
       showTitleError: false,
-      windowHeight: window.screen.availHeight - 60,
-      windowWidth: window.screen.availWidth
+      descError: '',
+      showDescError: false
     }
   },
   created: function () {
-    console.log(window)
   },
   methods: {
-    onCoverSelect: async function ($event) {
+    titleOnFocus: function () {
+      this.showTitleError = false
+      this.titleError = ''
+    },
+    descOnFocus: function () {
+      this.showDescError = false
+      this.descError = ''
+    },
+    onPhotoSelect: async function ($event) {
+      let content = {
+        'c_type': 'photo',
+        'c_data': '',
+        'uploading': true
+      }
+      const index = this.contents.length
+      Vue.set(this.contents, index, content)
       const file = $event.target.files[0]
       const url = await this.uploadImage(file)
       if (url === '') {
         return
       }
-      this.cover_url = url
-    },
-    addPhoto: function () {
-      const content = {
-        c_type: 'photo',
-        c_data: ''
-      }
-      Vue.set(this.contents, this.contents.length, content)
-      console.log(this.contents)
-    },
-    addText: function () {
-      const content = {
-        c_type: 'text',
-        c_data: ''
-      }
-      Vue.set(this.contents, this.contents.length, content)
-      console.log(this.contents)
-    },
-    onContentSelect: async function ($event, index) {
-      const file = $event.target.files[0]
-      const url = await this.uploadImage(file)
-      if (url === '') {
-        return
-      }
-      const content = this.contents[index]
       content.c_data = url
+      content.uploading = false
       Vue.set(this.contents, index, content)
     },
     uploadImage: async function (file) {
@@ -139,20 +133,15 @@ export default {
       }
       return imageUrl
     },
-    save: async function () {
+    publish: async function () {
       if (this.title.trim() === '') {
         this.showTitleError = true
         this.titleError = '请输入标题'
         return
       }
-      if (this.cover_url === '') {
-        this.showTitleError = true
-        this.titleError = '请输入封面图片'
-        return
-      }
       if (this.cover_desc.trim() === '') {
-        this.showTitleError = true
-        this.titleError = '请输入封面描述'
+        this.showDescError = true
+        this.descError = '请输入描述'
         return
       }
       if (this.contents.length === 0) {
@@ -296,7 +285,7 @@ export default {
   margin-bottom: 40px;
   vertical-align: top;
 }
-.upload-photo {
+.upload-photo, .uploading {
   height: 168px;
   padding: 47px 0;
   border: 2px solid #e0e0e0;

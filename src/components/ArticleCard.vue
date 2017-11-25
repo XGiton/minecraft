@@ -23,15 +23,9 @@
 // import utils from '../utils'
 
 export default {
-  data () {
-    return {
-      _id: '123',
-      title: '夜色布尔津',
-      cover_desc: '拍摄完喀纳斯，便踏上回程之路。回到布尔津附近时已是深夜。没有月光，除了远处县城依稀的灯光和偶尔驶过的车灯外，便是一片漆黑，伸手不见五指，只能在满天繁星的映衬下依稀看见些随风而动的树影。而这，正是拍摄银河的最佳时机。',
-      cover_url: 'https://cdn.camarts.cn/2016/01/IMG_2956.jpg?imageView/2/w/800/h/800/q/90',
-      create_time: '2017年11月22日'
-    }
-  },
+  props: [
+    '_id', 'title', 'cover_desc', 'create_time', 'cover_url'
+  ],
   methods: {
     seeDetail: function () {
       console.log('abc')
