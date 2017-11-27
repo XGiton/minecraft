@@ -1,8 +1,8 @@
 <template>
   <div id="article-detail">
     <section>
-      <div class="img-wrapper" v-for="img, index in imgs" :key="index">
-        <img :src="img.url">
+      <div class="img-wrapper" v-for="content, index in contents" :key="index">
+        <img :src="content.c_data">
       </div>
     </section>
   </div>
@@ -12,38 +12,26 @@
 export default {
   data: function () {
     return {
-      imgs: [
-        {
-          url: 'http://photo.tuchong.com/1175071/ft640/9229406.webp',
-          width: 414,
-          height: 311
-        },
-        {
-          url: 'http://photo.tuchong.com/1175071/ft640/9231429.webp',
-          width: 414,
-          height: 311
-        },
-        {
-          url: 'http://photo.tuchong.com/1175071/ft640/9231374.webp',
-          width: 414,
-          height: 311
-        },
-        {
-          url: 'http://photo.tuchong.com/1175071/ft640/9231354.webp',
-          width: 330,
-          height: 440
-        },
-        {
-          url: 'http:////photo.tuchong.com/1175071/ft640/9231081.webp',
-          width: 330,
-          height: 440
-        },
-        {
-          url: 'http:////photo.tuchong.com/1175071/ft640/9230317.webp',
-          width: 586,
-          height: 440
-        }
-      ]
+      contents: [],
+      title: '',
+      create_time: ''
+    }
+  },
+  created: function () {
+    this.getArticle()
+  },
+  methods: {
+    getArticle: async function () {
+      const url = `api/article/${this.$route.params.id}`
+      const res = await fetch(url)
+      const data = await res.json()
+      if (res.status >= 400) {
+        this.$Message.error(data.msg)
+      } else {
+        this.title = data.title
+        this.contents = data.contents
+        this.create_time = data.create_time
+      }
     }
   }
 }
@@ -56,7 +44,7 @@ section {
 }
 section::after {
   content: '';
-  flex-grow: 999999999;
+  flex-grow: 5;
 }
 .img-wrapper {
   flex-grow: 1;

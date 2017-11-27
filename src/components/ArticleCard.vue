@@ -6,7 +6,7 @@
       <img :src="cover_url">
     </div>
     <div class="see-detail">
-      <Button @click="seeDetail" type="default" size="large">
+      <Button @click="toDetail" type="default" size="large">
         查看本辑全部作品
         <Icon type="chevron-right"></Icon>
       </Button>
@@ -30,8 +30,8 @@ export default {
     timestampToDate: utils.timestampToDate
   },
   methods: {
-    seeDetail: function () {
-      this.$router.push(`/article/${this._id}`)
+    toDetail: function () {
+      this.$router.push(`article-detail/${this._id}`)
     }
   }
 }
