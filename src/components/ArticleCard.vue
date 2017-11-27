@@ -13,22 +13,24 @@
     </div>
     <div class="footer">
       <span>发表于</span>
-      <span class="create-time">{{ create_time }}</span>
+      <span class="create-time">{{ create_time | timestampToDate }}</span>
     </div>
     <hr class="split-line" />
   </div>
 </template>
 
 <script>
-// import utils from '../utils'
+import utils from '../utils'
 
 export default {
   props: [
     '_id', 'title', 'cover_desc', 'create_time', 'cover_url'
   ],
+  filters: {
+    timestampToDate: utils.timestampToDate
+  },
   methods: {
     seeDetail: function () {
-      console.log('abc')
       this.$router.push(`/article/${this._id}`)
     }
   }

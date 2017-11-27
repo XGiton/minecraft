@@ -13,6 +13,16 @@ const utils = {
       utils.padStr(date.getSeconds())}`
   },
 
+  timestampToDate: function (timestamp) {
+    const date = new Date(timestamp)
+    if (!date.getTime()) {
+      return ''
+    }
+    return `${date.getFullYear()}/${
+      utils.padStr(1 + date.getMonth())}/${
+      utils.padStr(date.getDate())}`
+  },
+
   isString: function (obj) {
     return typeof obj === 'string'
   },
@@ -26,6 +36,10 @@ const utils = {
       return false
     }
     return true
+  },
+
+  padStr: function (n) {
+    return (n < 10) ? `0${n}` : `${n}`
   }
 }
 

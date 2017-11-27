@@ -152,8 +152,11 @@ export default {
       for (let i = 0; i < this.contents.length; i += 1) {
         const content = this.contents[i]
         if (content.c_data.trim() === '') {
-          this.showTitleError = true
-          this.titleError = '内容不能为空'
+          this.$Message.warning('内容不能为空')
+          return
+        }
+        if (content.uploading) {
+          this.$Message.warning('图片正在上传，请稍等')
           return
         }
       }
@@ -170,9 +173,9 @@ export default {
       })
       const data = await res.json()
       if (res.status >= 400) {
-        console.log(data.msg)
+        this.$Message.error(data.msg)
       } else {
-        console.log('success')
+        this.$Message.success('success')
       }
     }
   }
