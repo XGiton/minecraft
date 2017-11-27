@@ -176,6 +176,7 @@ export default {
         this.$Message.error(data.msg)
       } else {
         this.$Message.success('success')
+        this.$router.push(`/article/${data._id}`)
       }
     }
   }

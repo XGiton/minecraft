@@ -4,6 +4,7 @@ import CreateArticle from '@/components/CreateArticle'
 import Photography from '@/components/Photography'
 import Program from '@/components/Program'
 import Essay from '@/components/Essay'
+import ArticleDetail from '@/components/ArticleDetail'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/article/create',
       name: 'CreateArticle',
       component: CreateArticle
+    },
+    {
+      path: '/article-detail/:id',
+      name: 'ArticleDetail',
+      component: ArticleDetail
     },
     {
       path: '*',
