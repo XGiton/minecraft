@@ -29,6 +29,8 @@ export default {
   filters: {
     timestampToDate: utils.timestampToDate
   },
+  created: function () {
+  },
   methods: {
     toDetail: function () {
       this.$router.push(`article-detail/${this._id}`)

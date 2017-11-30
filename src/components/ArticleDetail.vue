@@ -1,4 +1,5 @@
-<template>
+
+  <template>
   <div id="article-detail">
     <section>
       <div class="img-wrapper" v-for="content, index in contents" :key="index">
@@ -50,11 +51,11 @@ section::after {
   flex-grow: 1;
   margin: 2px;
   background-color: violet;
-  height: 300px;
+  height: 400px;
   position: relative;
 }
 .img-wrapper img {
-  height: 300px;
+  height: 400px;
   object-fit: cover;
   min-width: 100%;
   vertical-align: bottom;

@@ -4,7 +4,7 @@ import CreateArticle from '@/components/CreateArticle'
 import Photography from '@/components/Photography'
 import Program from '@/components/Program'
 import Essay from '@/components/Essay'
-import ArticleDetail from '@/components/ArticleDetail'
+import ArticleDetail from '@/components/Article'
 
 Vue.use(Router)
 
