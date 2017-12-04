@@ -2,20 +2,20 @@
   <div ref="article" id="article">
     <h2>{{ title }}</h2>
     <div class="photo-list">
-      <div v-for="row, row_index in rows" :key="row_index">
+      <div class="gallery-row" v-for="row, row_index in rows" :key="row_index">
         <div
-          class="photo-wrap"
+          class="gallery-item"
           v-for="photo, photo_index in row.photos" :key="photo_index"
         >
           <img v-if="photo_index === 0"
             :data-ratio="photo.aspect_ratio"
             :src="photo.url"
-            :style="'height:' + photo.styleHeight + 'px;'"
+            :style="'height:' + photo.styleHeight + 'px; width:' + photo.styleWidth + 'px;'"
           >
           <img v-else
             :data-ratio="photo.aspect_ratio"
             :src="photo.url"
-            :style="'height:' + photo.styleHeight + 'px; padding-left:' + gap + 'px;'"
+            :style="'height:' + photo.styleHeight + 'px; margin-left:' + gap + 'px; width:' + photo.styleWidth + 'px;'"
           >
         </div>
       </div>
@@ -31,9 +31,9 @@ export default {
       title: '',
       create_time: '',
       rows: [],  // 二维数组，存放每一行的图片,
-      minHeight: 400,
+      minHeight: 300,
       minRadio: 0,
-      gap: 12,
+      gap: 10,
       clientWidth: 0
     }
   },
@@ -82,12 +82,14 @@ export default {
           radio = 0
         }
       }
+      // 处理最后一行
       for (let i = 0; i < rowPhotos.length; i++) {
         radio += Number(rowPhotos[i].aspect_ratio)
       }
       rows.push({
         radio: radio,
-        photos: rowPhotos
+        photos: rowPhotos,
+        lastRow: true
       })
       return rows
     },
@@ -95,10 +97,17 @@ export default {
       let rows = this.getRows(photos)
       for (let i = 0; i < rows.length; i++) {
         let row = rows[i]
-        let actualWidth = this.clientWidth - (row.photos.length + 1) * this.gap
+        // 计算实际显示图片的宽度，多出gap / 2用于
+        let actualWidth = this.clientWidth - (row.photos.length) * this.gap - this.gap / 2
         for (let j = 0; j < row.photos.length; j++) {
           let photo = row.photos[j]
-          photo.styleHeight = actualWidth / row.radio
+          if (row.lastRow) {
+            photo.styleHeight = this.minHeight
+            photo.styleWidth = this.minHeight * photo.aspect_ratio
+          } else {
+            photo.styleHeight = actualWidth / row.radio
+            photo.styleWidth = photo.styleHeight * photo.aspect_ratio
+          }
         }
       }
       return rows
@@ -109,17 +118,31 @@ export default {
 
 <style scoped>
 #article {
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 100px;
+  margin-right: 100px;
   background-color: #fff;
-  /*padding-left: 8%;
-  padding-right: 8%;*/
   margin-bottom: 100px;
 }
-.photo-list {
-  margin: 0 auto;
+.gallery-row{
+	margin-bottom: 8px;
+	overflow: hidden;
+	white-space: nowrap;
+	/*padding-right: 8px;*/
 }
-.photo-wrap {
-  display: inline-block;
+.gallery-item{
+	height: 100%;
+	display: inline-block;
+	/*margin-left: 8px;*/
+	position: relative;
+}
+img{
+	object-fit: cover;
+	border-radius: 5px;
+}
+.noscroll{
+	overflow: hidden;
+}
+.hide{
+	display: none;
 }
 </style>
