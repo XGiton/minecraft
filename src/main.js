@@ -5,10 +5,12 @@ import App from './App'
 import router from './router'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+import VueLazyload from 'vue-lazyload'
 
 Vue.config.productionTip = false
 
 Vue.use(iView)
+Vue.use(VueLazyload)
 
 /* eslint-disable no-new */
 new Vue({

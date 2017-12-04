@@ -9,12 +9,12 @@
         >
           <img v-if="photo_index === 0"
             :data-ratio="photo.aspect_ratio"
-            :src="photo.url"
+            v-lazy="photo.url"
             :style="'height:' + photo.styleHeight + 'px; width:' + photo.styleWidth + 'px;'"
           >
           <img v-else
             :data-ratio="photo.aspect_ratio"
-            :src="photo.url"
+            v-lazy="photo.url"
             :style="'height:' + photo.styleHeight + 'px; margin-left:' + gap + 'px; width:' + photo.styleWidth + 'px;'"
           >
         </div>
