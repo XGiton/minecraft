@@ -1,5 +1,9 @@
 <template>
   <div id="photography">
+    <!-- 页面header -->
+    <div class="header" :style="'background-image: url(' + backgroundImage + ');'">
+
+    </div>
     <div class="articleList">
       <ul>
         <li v-for="article, index in articles">
@@ -15,14 +19,16 @@
 </template>
 
 <script>
-import ArticleCard from './ArticleCard'
+import ArticleCard from './ArticleCard';
+import backgroundImage from './../assets/photography-background.jpeg';
 
 export default {
   name: 'photography',
   data () {
     return {
       total: 0,
-      articles: []
+      articles: [],
+      backgroundImage: backgroundImage
     }
   },
   components: {
@@ -49,12 +55,18 @@ export default {
 
 <style scoped>
 #photography {
-  margin-left: 16%;
-  margin-right: 16%;
   background-color: #fff;
-  padding-left: 8%;
-  padding-right: 8%;
   margin-bottom: 100px;
+}
+.header {
+  background: no-repeat 50% #f4f1ec;
+  min-height: 320px;
+  max-height: 400px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background-position: 50%;
+  background-size: cover;
 }
 .article-card {
   padding-top: 20px;
