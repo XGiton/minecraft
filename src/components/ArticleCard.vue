@@ -1,6 +1,14 @@
 <template>
   <div id="article-card">
-    <h2>{{ title}}</h2>
+    <div class="card">
+      <div class="cover" :style="'background-image: url(' + cover_url + ');'">
+        <!-- <img :src="cover_url"> -->
+      </div>
+      <div class="intro">
+        <span>{{ title }}</span>
+      </div>
+    </div>
+    <!-- <h2>{{ title}}</h2>
     <p class="cover-desc">{{ cover_desc }}</p>
     <div class="cover-url">
       <img :src="cover_url">
@@ -15,7 +23,7 @@
       <span>发表于</span>
       <span class="create-time">{{ create_time | timestampToDate }}</span>
     </div>
-    <hr class="split-line" />
+    <hr class="split-line" /> -->
   </div>
 </template>
 
@@ -40,7 +48,46 @@ export default {
 </script>
 
 <style scoped>
-h2 {
+#article-card {
+  display: inline-block;
+}
+.card {
+  box-shadow: 1px 1px 2px rgba(0,0,0,.2);
+  background-color: #fff;
+  width: 280px;
+  height: 330px;
+  text-align: center;
+  position: relative;
+}
+.cover {
+  text-align: center;
+  width: 280px;
+  height: 280px;
+  display: block;
+  overflow: hidden;
+  vertical-align: middle;
+  background-size: cover;
+  background-position: center;
+}
+.cover img {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: block;
+}
+.intro {
+  position: absolute;;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  height: 50px;
+  line-height: 50px;
+  font-size: 16px;
+  font-family: PingFang SC,Helvetica neue,Helvetica,Tahoma,lantinghei sc,Microsoft Yahei,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: #000;
+}
+/*h2 {
   font-size: 28px;
   transition: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(163, 163, 163, 0.73)), to(rgba(0, 0, 0, 1)));
 }
@@ -63,7 +110,7 @@ img {
 .footer {
   margin-top: 30px;
   /*padding-left: 15px;*/
-}
+/*}
 .footer span {
   font-size: 12px;
   color: #969696;
@@ -76,5 +123,5 @@ img {
   background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .2), rgba(0, 0, 0, .0));
   height: 1px;
   border: 0;
-}
+}*/
 </style>

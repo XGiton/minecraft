@@ -1,10 +1,9 @@
 <template>
   <div id="photography">
     <!-- 页面header -->
-    <div class="header" :style="'background-image: url(' + backgroundImage + ');'">
-
-    </div>
-    <div class="articleList">
+    <!-- <div class="header" :style="'background-image: url(' + backgroundImage + ');'">
+    </div> -->
+    <div class="article-list">
       <ul>
         <li v-for="article, index in articles">
           <ArticleCard
@@ -55,8 +54,9 @@ export default {
 
 <style scoped>
 #photography {
-  background-color: #fff;
+  background-color: #dee3e7;
   margin-bottom: 100px;
+  overflow: auto;
 }
 .header {
   background: no-repeat 50% #f4f1ec;
@@ -68,8 +68,36 @@ export default {
   background-position: 50%;
   background-size: cover;
 }
+.article-list {
+  padding: 40px 0;
+  margin: auto;
+  min-height: 400px;
+  position: relative;
+  zoom: 1;
+}
 .article-card {
-  padding-top: 20px;
+  margin-bottom: 20px;
+  display: inline;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+  float: left;
+  border-radius: 2px;
 }
 
+@media screen and (max-width: 1550px) {
+  .article-list {
+    width: 1200px;
+  }
+}
+@media screen and (max-width: 1250px) {
+  .article-list {
+    width: 900px;
+  }
+}
+@media screen and (max-width: 950px) {
+  .article-list {
+    width: 600px;
+  }
+}
 </style>
