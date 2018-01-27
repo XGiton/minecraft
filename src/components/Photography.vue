@@ -34,18 +34,18 @@ export default {
     ArticleCard
   },
   created: function () {
-    this.getArticles()
+    this.getArticles();
   },
   methods: {
     getArticles: async function () {
-      const url = '/api/articles?skip=0&limit=10&a_type=photography'
-      const res = await fetch(url)
-      const data = await res.json()
+      const url = '/api/articles?skip=0&limit=20&a_type=photography';
+      const res = await fetch(url);
+      const data = await res.json();
       if (res.status >= 400) {
-        console.log(data.msg)
+        console.log(data.msg);
       } else {
-        this.total = data.total
-        this.articles = data.articles
+        this.total = data.total;
+        this.articles = data.articles;
       }
     }
   }
@@ -78,26 +78,25 @@ export default {
 .article-card {
   margin-bottom: 20px;
   display: inline;
-  padding-left: 10px;
-  padding-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
   position: relative;
   float: left;
-  border-radius: 2px;
 }
 
 @media screen and (max-width: 1550px) {
   .article-list {
-    width: 1200px;
+    width: 1100px;
   }
 }
 @media screen and (max-width: 1250px) {
   .article-list {
-    width: 900px;
+    width: 880px;
   }
 }
 @media screen and (max-width: 950px) {
   .article-list {
-    width: 600px;
+    width: 660px;
   }
 }
 </style>

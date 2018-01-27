@@ -1,29 +1,15 @@
 <template>
   <div id="article-card">
     <div class="card">
+      <!-- 把图片作为背景图片，解决图片适配问题 -->
       <div class="cover" :style="'background-image: url(' + cover_url + ');'">
         <!-- <img :src="cover_url"> -->
       </div>
       <div class="intro">
-        <span>{{ title }}</span>
+        <p class="title">{{ title }}</p>
+        <p class="desc">{{ cover_desc }}</p>
       </div>
     </div>
-    <!-- <h2>{{ title}}</h2>
-    <p class="cover-desc">{{ cover_desc }}</p>
-    <div class="cover-url">
-      <img :src="cover_url">
-    </div>
-    <div class="see-detail">
-      <Button @click="toDetail" type="default" size="large">
-        查看本辑全部作品
-        <Icon type="chevron-right"></Icon>
-      </Button>
-    </div>
-    <div class="footer">
-      <span>发表于</span>
-      <span class="create-time">{{ create_time | timestampToDate }}</span>
-    </div>
-    <hr class="split-line" /> -->
   </div>
 </template>
 
@@ -50,19 +36,26 @@ export default {
 <style scoped>
 #article-card {
   display: inline-block;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 1px 1px 2px rgba(3,44,49,.06);
+  transition: all .5s ease;
 }
 .card {
-  box-shadow: 1px 1px 2px rgba(0,0,0,.2);
   background-color: #fff;
-  width: 280px;
-  height: 330px;
+  width: 200px;
+  height: 230px;
   text-align: center;
   position: relative;
 }
+#article-card:hover {
+  box-shadow: 8px 8px 32px rgba(255, 192, 203, .3);
+  /*transition: all .5s ease;*/
+}
 .cover {
   text-align: center;
-  width: 280px;
-  height: 280px;
+  width: 200px;
+  height: 160px;
   display: block;
   overflow: hidden;
   vertical-align: middle;
@@ -77,51 +70,26 @@ export default {
 }
 .intro {
   position: absolute;;
-  bottom: 0;
-  width: 100%;
-  left: 0;
-  height: 50px;
-  line-height: 50px;
-  font-size: 16px;
-  font-family: PingFang SC,Helvetica neue,Helvetica,Tahoma,lantinghei sc,Microsoft Yahei,sans-serif;
   -webkit-font-smoothing: antialiased;
-  color: #000;
-}
-/*h2 {
-  font-size: 28px;
-  transition: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(163, 163, 163, 0.73)), to(rgba(0, 0, 0, 1)));
-}
-.cover-desc {
-  overflow: hidden;
-  font-size: 16px;
-  padding-top: 16px;
-}
-.cover-url {
-  padding-top: 16px;
-  margin: 0 auto;
-}
-img {
-  margin: 0 auto;
+  text-align: left;
   width: 100%;
 }
-.see-detail {
-  margin-top: 30px;
+.intro p {
+  font-family: PingFang SC,Helvetica neue,Helvetica,Tahoma,lantinghei sc,Microsoft Yahei,sans-serif;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
-.footer {
-  margin-top: 30px;
-  /*padding-left: 15px;*/
-/*}
-.footer span {
-  font-size: 12px;
-  color: #969696;
+.intro .title {
+  width: 100%;
+  color: #000;
+  font-size: 16px;
+  padding: 8px 10px 0 10px;
 }
-.footer .create-time {
-  font-weight: bold;
+.intro .desc {
+  width: 100%;
+  font-size: 13px;
+  padding: 4px 10px;
+  color: #80848f;
 }
-.split-line {
-  margin-top: 40px;
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .2), rgba(0, 0, 0, .0));
-  height: 1px;
-  border: 0;
-}*/
 </style>
