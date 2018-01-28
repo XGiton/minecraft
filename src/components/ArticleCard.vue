@@ -49,8 +49,7 @@ export default {
   position: relative;
 }
 #article-card:hover {
-  box-shadow: 8px 8px 32px rgba(255, 192, 203, .3);
-  /*transition: all .5s ease;*/
+  box-shadow: 8px 8px 32px #FF66FF;
 }
 .cover {
   text-align: center;

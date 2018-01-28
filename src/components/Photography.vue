@@ -6,11 +6,13 @@
     <div class="article-list">
       <ul>
         <li v-for="article, index in articles">
-          <ArticleCard
-            class="article-card"
-            v-bind="article"
-          >
-          </ArticleCard>
+          <router-link :to="{name: 'ArticleDetail', params: {id: article._id}}">
+            <ArticleCard
+              class="article-card"
+              v-bind="article"
+            >
+            </ArticleCard>
+          </router-link>
         </li>
       </ul>
     </div>
